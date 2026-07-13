@@ -30,14 +30,13 @@ print("--------------------------------")
 WHO_MINIMUM_LITERS_PER_PERSON = 50
 
 checking = True
+critical_count = 0
 
 while checking:
     hoursehold_name = input("\nHousehold name (or 'quit' to stop): ")
     if hoursehold_name.lower() == "quit":
         checking = False
     else:
-       
-
        
 # STEP 2: Adding the water math
 
@@ -55,7 +54,12 @@ while checking:
        elif liters_available >= needed * 0.5:
             print("Status: Below recommended - monitor closely")
        else:
+            critical_count = critical_count + 1
             print("Status: CRITICAL shortage - needs urgent support")
+
+print(f"Total number of Critical Households in this session: {critical_count}")
 print("\nSession ended.")
+
+# DAY 2 Challenge: Track Critical Households
 
 
