@@ -2,29 +2,29 @@
     # A Function let you package a block of code, give it a name,
     #  and run it whenever you want from anywhere in your program.
 
-def greet(name):
-    print("Hello, " + name + "!")
+# def greet(name):
+#     print("Hello, " + name + "!")
 
-greet("Gabriel")
-greet("Adanu")
+# greet("Gabriel")
+# greet("Adanu")
 
 # COncept 2: return(getting a value back from a function)
     # return handles a value back to wherever the function was called,
     # so you can store it or use it in more calculations.
 
-def add(a, b):
-    return a + b
+# def add(a, b):
+#     return a + b
 
-result = add(4, 7)
-print(result)
+# result = add(4, 7)
+# print(result)
 
 # Exercise: Calculate bmi:
 
-def calculate_bmi(weight, height):
-    return weight / (height ** 2)
+# def calculate_bmi(weight, height):
+#     return weight / (height ** 2)
 
-my_bmi = calculate_bmi(68, 1.68)
-print(round(my_bmi, 1))
+# my_bmi = calculate_bmi(68, 1.68)
+# print(round(my_bmi, 1))
 
 # Concept 3: File Handling (saving data permantly)
 
@@ -37,11 +37,11 @@ print(round(my_bmi, 1))
 # COncept 4: Append mode("a"):
     # Append add to the end of a file without deleting what's already there.
 
-with open("notes.txt", "a") as file:
-    file.write("\nAnother line added!")
+# with open("notes.txt", "a") as file:
+#     file.write("\nAnother line added!")
 
-with open("notes.txt", "r") as file:
-    print(file.read())
+# with open("notes.txt", "r") as file:
+#     print(file.read())
 
 # Note that: in running append ("a") if you have "w" which is write above the append,
 # the first "w" above the append overwrite everythin, then append once wiping,
@@ -54,4 +54,38 @@ with open("notes.txt", "r") as file:
     # student's attendance rate from that saved history.
 
     # this could help identify students at risk of dropping out.
+
+FILENAME = "attendace.csv"
+
+def log_attendance(student_name, status):
+    """Append one attendance record to the file."""
+    with open(FILENAME, "a") as file:
+        file.write(f"{student_name},{status}\n")
+
+# STEP 2: CALCULATING ATTENDANCE RATE:
+
+def calculate_attendance_rate(student_name):
+    """Read the file and calculate % of days present for a student."""
+    total_days = 0 
+    present_days = 0
+
+    with open(FILENAME, "r") as file:
+        for line in file:
+            name, status = line.strip().split(",")
+            if name == student_name:
+                total_days += 1
+                if status == "present":
+                    present_days += 1
     
+    if total_days == 0:
+        return None
+    return (present_days / total_days) * 100
+
+log_attendance("Ada", "present")
+log_attendance("Musa", "absent")
+log_attendance("Ada", "present")
+log_attendance("jerri", "present")
+
+
+rate = calculate_attendance_rate("jerri")
+print(rate)
